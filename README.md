@@ -1,18 +1,38 @@
-# Salesforce DX Project: Next Steps
+## Salesforce Batch Processing for Account Task Creation
+## Overview
+This Salesforce project utilizes an Apex batch process to automate the creation of tasks for inactive accounts that do not have a task with "appel" in the subject. The batch process identifies these accounts and creates a new task with specific details for each eligible account.
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+## Features
+Identify Inactive Accounts: The batch process identifies accounts where the Active__c field is set to false.
+Task Creation: For each inactive account without a task containing "appel" in the subject, a new task is created with the subject "Call".
+Automation: The process can be scheduled to run regularly, ensuring that inactive accounts are proactively followed up.
 
-## How Do You Plan to Deploy Your Changes?
+## Components
+Apex Class: AccountTaskBatch
+start Method: Defines the SOQL query to retrieve inactive accounts without specific tasks.
+execute Method: Creates a new task for each eligible account.
+finish Method: Performs actions after all batches are processed (currently, logs a debug message).
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+## Installation and Configuration
+Deploy the Code:
+Deploy the AccountTaskBatch class to your Salesforce organization.
+Ensure that custom fields (such as Active__c) exist on the Account object.
 
-## Configure Your Salesforce DX Project
+Schedule the Batch:
+To run the batch manually, use an anonymous script in the Developer Console:
+Id batchProcessId = Database.executeBatch(new AccountTaskBatch());
+To schedule the batch, create a scheduler class or use a third-party scheduling solution.
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+## Testing
+Manual Tests: Run the batch and verify that tasks are created as expected.
+Unit Tests: Write unit tests to automate the validation of the batch process.
 
-## Read All About It
+## Maintenance
+Monitoring: Regularly monitor logs and batch results to ensure it is functioning correctly.
+Optimization: Adjust batch size and optimize queries to efficiently manage resources.
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+## Contributing
+Contributions are welcome! If you have suggestions or improvements, please submit a pull request.
+
+## Contact
+For any questions or suggestions, please contact [Your Name] at [antoine.marez@gmail.com].
