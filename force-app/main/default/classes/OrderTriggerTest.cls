@@ -1,5 +1,14 @@
+/**
+ * Test class for the OrderTrigger Apex trigger.
+ * Contains unit tests to verify the functionality of the trigger when orders are deleted.
+ */
 @isTest
 public class OrderTriggerTest {
+
+    /**
+     * Setup method to create test data before any test methods in the class are executed.
+     * Creates test accounts and orders to be used in the tests.
+     */
     @testSetup
     static void setup() {
         // Create test accounts
@@ -24,6 +33,10 @@ public class OrderTriggerTest {
         insert testOrders;
     }
 
+    /**
+     * Test method to verify the behavior of the OrderTrigger when an order is deleted.
+     * Ensures that the Active__c field on related Accounts is updated correctly after an Order is deleted.
+     */
     @isTest
     static void testOrderDeletion() {
         // Retrieve the test accounts and orders

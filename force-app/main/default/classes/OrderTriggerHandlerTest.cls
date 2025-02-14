@@ -1,5 +1,14 @@
+/**
+ * Test class for the OrderTriggerHandler Apex class.
+ * Contains unit tests to verify the functionality of the trigger handler methods.
+ */
 @isTest
 public class OrderTriggerHandlerTest {
+
+    /**
+     * Setup method to create test data before any test methods in the class are executed.
+     * Creates test accounts and orders using the DataFactory utility class.
+     */
     @testSetup
     static void setup() {
         // Create test accounts using DataFactory
@@ -19,6 +28,10 @@ public class OrderTriggerHandlerTest {
         }
     }
 
+    /**
+     * Test method to verify the handleAfterDelete method in OrderTriggerHandler.
+     * Ensures that the Active__c field on related Accounts is updated correctly after an Order is deleted.
+     */
     @isTest
     static void testHandleAfterDelete() {
         // Retrieve the test accounts and orders
@@ -34,7 +47,7 @@ public class OrderTriggerHandlerTest {
         Account accountWithRemainingOrders = [SELECT Id, Active__c FROM Account WHERE Id = :accounts[1].Id];
         Account accountWithoutOrders = [SELECT Id, Active__c FROM Account WHERE Id = :accounts[0].Id];
 
-        System.assertEquals(true, accountWithRemainingOrders.Active__c, 'The account with remaining orders should be active.');
-        System.assertEquals(false, accountWithoutOrders.Active__c, 'The account without orders should be inactive.');
+        Assert.areEqual(true, accountWithRemainingOrders.Active__c, 'The account with remaining orders should be active.');
+        Assert.areEqual(false, accountWithoutOrders.Active__c, 'The account without orders should be inactive.');
     }
 }

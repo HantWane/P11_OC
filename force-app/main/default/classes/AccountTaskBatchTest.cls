@@ -1,5 +1,14 @@
+/**
+ * Test class for the AccountTaskBatch Apex batch process.
+ * This class contains unit tests to verify the functionality of the batch process.
+ */
 @isTest
 public class AccountTaskBatchTest {
+
+    /**
+     * Setup method to create test data before any test methods in the class are executed.
+     * Creates test accounts and tasks for some of the accounts.
+     */
     @testSetup
     static void setup() {
         // Create test accounts
@@ -24,6 +33,10 @@ public class AccountTaskBatchTest {
         insert testTasks;
     }
 
+    /**
+     * Test method to verify the batch processing functionality.
+     * Ensures that tasks are created for accounts without existing "appel" tasks.
+     */
     @isTest
     static void testBatchProcessing() {
         // Execute the batch

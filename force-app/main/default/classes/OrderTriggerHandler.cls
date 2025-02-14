@@ -1,5 +1,14 @@
-
+/**
+ * Handler class for managing Order-related trigger logic in Salesforce.
+ */
 public class OrderTriggerHandler {
+
+    /**
+     * Handles the after delete event for Orders.
+     * This method updates the Active__c field on related Accounts based on the presence of Orders.
+     *
+     * @param deletedOrders A list of Order records that have been deleted.
+     */
     public static void handleAfterDelete(List<Order> deletedOrders) {
         Set<Id> accountIds = new Set<Id>();
 
