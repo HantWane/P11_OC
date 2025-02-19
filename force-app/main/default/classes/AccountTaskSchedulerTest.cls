@@ -1,16 +1,25 @@
+/**
+ * Test class for the AccountTaskScheduler.
+ * This class contains unit tests to verify the functionality of the AccountTaskScheduler,
+ * ensuring that the batch job is scheduled and executed correctly.
+ */
 @isTest
 public class AccountTaskSchedulerTest {
 
+    /**
+     * Test method to verify the scheduling and execution of the AccountTaskBatch job.
+     * This test ensures that the scheduler correctly schedules the batch job and that it can be unscheduled properly.
+     */
     @isTest
     static void testScheduler() {
-        // Utiliser DataFactory pour créer des données de test
+        // Use DataFactory for create Account
         List<Account> testAccounts = new List<Account>();
         for (Integer i = 0; i < 5; i++) {
             Account acc = DataFactory.createAccount('Test Account ' + i);
             testAccounts.add(acc);
         }
 
-        // Créer des tâches pour certains des comptes
+        // Create tasks for accounts
         List<Task> testTasks = new List<Task>();
         for (Integer i = 0; i < 3; i++) {
             Task task = new Task(
@@ -41,15 +50,15 @@ public class AccountTaskSchedulerTest {
                                       FROM CronTrigger
                                       WHERE Id = :jobId];
 
-        System.assertEquals(1, triggers.size(), 'One cron trigger should be created.');
-        System.assertEquals('Test Account Task Scheduler', triggers[0].CronJobDetail.Name, 'Job name should match.');
-        System.assertEquals('WAITING', triggers[0].State, 'Job state should be WAITING.');
+        Assert.areEqual(1, triggers.size(), 'One cron trigger should be created.');
+        Assert.areEqual('Test Account Task Scheduler', triggers[0].CronJobDetail.Name, 'Job name should match.');
+        Assert.areEqual('WAITING', triggers[0].State, 'Job state should be WAITING.');
 
         // Unschedule the job to clean up
         System.abortJob(jobId);
 
         // Verify that the job was unscheduled successfully
         triggers = [SELECT Id FROM CronTrigger WHERE Id = :jobId];
-        System.assertEquals(0, triggers.size(), 'No cron triggers should exist after aborting the job.');
+        Assert.areEqual(0, triggers.size(), 'No cron triggers should exist after aborting the job.');
     }
 }
