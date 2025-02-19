@@ -14,7 +14,7 @@ public class AccountTaskBatch implements Database.Batchable<SObject> {
     public Database.QueryLocator start(Database.BatchableContext BC) {
         // Query all accounts that are inactive and do not have a task with "call" in the name
         return Database.getQueryLocator([
-            SELECT Id, (SELECT Id FROM Tasks WHERE Subject LIKE '%call%')
+            SELECT Id, (SELECT Id FROM Tasks WHERE Subject LIKE '%appel%')
             FROM Account
             WHERE Active__c = false
         ]);
