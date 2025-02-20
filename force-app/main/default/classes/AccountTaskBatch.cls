@@ -39,6 +39,7 @@ public class AccountTaskBatch implements Database.Batchable<SObject> {
                     Priority = 'Normale',
                     ActivityDate = Date.today().addDays(5),
                     WhatId = account.Id,
+                    IsReminderSet = true, 
                     ReminderDateTime = DateTime.now().addDays(5)
                 );
                 tasksToInsert.add(newTask);
